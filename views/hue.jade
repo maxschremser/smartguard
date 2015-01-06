@@ -1,0 +1,36 @@
+extends layout
+block content
+  div.page-header
+    //h1 #{title}
+    h1 Philips
+      b HUE
+      | &nbsp; Light Control
+
+  if user
+    .container
+      div(id='hue_callout').bs-callout.bs-callout-info
+        h4 Click a button to set a wanted room color, Lights: #{num_hues}
+        a(href="/hue/blue", title="Blue").btn.btn-lg.btn-primary.col-lg-1.fa.fa-lightbulb-o
+        a(href="/hue/red", title="Red").btn.btn-lg.btn-danger.col-lg-1.fa.fa-lightbulb-o.rhbsl
+        a(href="/hue/green", title="Green").btn.btn-lg.btn-success.col-lg-1.fa.fa-lightbulb-o.rhbsl
+        a(href="/hue/yellow", title="Yellow").btn.btn-lg.btn-warning.col-lg-1.fa.fa-lightbulb-o.rhbsl
+        a(href="/hue/white", title="White").btn.btn-lg.btn-default.col-lg-1.fa.fa-lightbulb-o.rhbsl
+        a(href="/hue/off", title="Off").btn.btn-lg.btn-link.col-lg-1.fa.fa-lightbulb-o.rhbsl
+        br
+        br
+
+      script.
+        console.log('This is awesome');
+        var color = "";
+        var href = document.location.href;
+        if (href.indexOf('#') > 0) {
+          color = href.substring(href.indexOf('#') + 1, href.length);
+          console.log("Color: " + color);
+          if (color.length > 0) {
+            document.getElementById('hue_callout').style.borderColor = color;
+          }
+        }
+  else
+    p Login before you use the world control center
+    p
+      a.btn.btn-primary(href="/login") Login now

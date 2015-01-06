@@ -1,10 +1,13 @@
 var express = require('express');
-var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
-});
+module.exports = function index() {
+  var router = express.Router();
 
-console.log("index route setup");
-module.exports = router;
+  router.get('/', function (req, res) {
+    res.render('index', {title: 'SmartGuard Web Control'});
+  });
+
+  console.log("index route setup");
+  return router;
+}

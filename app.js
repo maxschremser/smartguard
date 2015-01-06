@@ -3,10 +3,12 @@ var path = require('path');
 //var favicon = require('serve-favicon');
 var logger = require('morgan');
 var stormpath = require('express-stormpath');
-var profile = require('./routes/profile')();
 var properties = require('properties');
 var application = "", secretKey = "";
 var app = express();
+var index = require('./routes')();
+var profile = require('./routes/profile')();
+var hue = require('./routes/hue')();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,10 +40,13 @@ var stormpathMiddleware = stormpath.init(app, {
 
 app.use(stormpathMiddleware);
 
+app.use('/', index);
+app.use('/hue', hue);
 app.use('/profile', profile);
 
 // send the index view on start
 app.get('/', function(req, res) {
-  res.render('index', {title: "SmartGuard"});
+  res.render('index', {"title": "SmartGuard - WebControl"});
 });
+
 module.exports = app;

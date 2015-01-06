@@ -1,5 +1,56 @@
+.jumbotron {
+    opacity: 0.85;
+}
+
+.rhbsl {
+    margin-left: 3px;
+}
+
+.btn-link,.btn-link:hover,.btn-link:active  {
+    border: 1px solid black;
+}
+
+/* Side notes for calling out things
+-------------------------------------------------- */
+
+/* Base styles (regardless of theme) */
+.bs-callout {
+    margin: 20px 0;
+    padding: 15px 30px 15px 15px;
+    border-left: 23px solid #eee;
+    opacity: 1;
+}
+
+.bs-callout h4 {
+    margin-top: 0;
+}
+
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+    background-color: #fff;
+}
+
+/* Themes for different contexts */
+.bs-callout-danger {
+    background-color: #fcf2f2;
+    border-color: #dFb5b4;
+}
+.bs-callout-warning {
+    background-color: #fefbed;
+    border-color: #f1e7bc;
+}
+.bs-callout-info {
+    background-color: #f0f7fd;
+    border-color: #d0e3f0;
+
+}
+
+
 /*
-A custom Bootstrap 3.2 'Google Plus style' theme
+A custom Bootstrap 3.1 template
 from http://bootply.com
 
 This CSS code should follow the 'bootstrap.css'
@@ -9,96 +60,99 @@ license: MIT
 author: bootply.com
 */
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:400);
-body {
-  background-color:#e0e0e0;
-  -webkit-font-smoothing: antialiased;
-  font: normal 14px Roboto,arial,sans-serif;
-}
-.navbar-default {background-color:#f4f4f4;margin-top:50px;border-width:0;z-index:5;}
-.navbar-default .navbar-nav > .active > a,.navbar-default .navbar-nav > li:hover > a {border:0 solid #4285f4;border-bottom-width:2px;font-weight:800;background-color:transparent;}
-.navbar-default .dropdown-menu {background-color:#ffffff;}
-.navbar-default .dropdown-menu li > a {padding-left:30px;}
-
-.header {background-color:#ffffff;border-width:0;}
-.header .navbar-collapse {background-color:#ffffff;}
-.btn,.form-control,.panel,.list-group,.well {border-radius:1px;box-shadow:0 0 0;}
-.form-control {border-color:#d7d7d7;}
-.btn-primary {border-color:transparent;}
-.btn-primary,.label-primary,.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {background-color:#4285f4;}
-.btn-plus {background-color:#ffffff;border-width:1px;border-color:#dddddd;box-shadow:1px 1px 0 #999999;border-radius:3px;color:#666666;text-shadow:0 0 1px #bbbbbb;}
-.well,.panel {border-color:#d2d2d2;box-shadow:0 1px 0 #cfcfcf;border-radius:3px;}
-.btn-success,.label-success,.progress-bar-success{background-color:#65b045;}
-.btn-info,.label-info,.progress-bar-info{background-color:#a0c3ff;border-color:#a0c3ff;}
-.btn-danger,.label-danger,.progress-bar-danger{background-color:#dd4b39;}
-.btn-warning,.label-warning,.progress-bar-warning{background-color:#f4b400;color:#444444;}
-
-hr {border-color:#ececec;}
-button {
- outline: 0;
-}
-textarea {
- resize: none;
- outline: 0; 
-}
-.panel .btn i,.btn span{
- color:#666666;
-}
-.panel .panel-heading {
- background-color:#ffffff;
- font-weight:700;
- font-size:16px;
- color:#262626;
- border-color:#ffffff;
-}
-.panel .panel-heading a {
- font-weight:400;
- font-size:11px;
-}
-.panel .panel-default {
- border-color:#cccccc;
-}
-.panel .panel-thumbnail {
- padding:0;
-}
-.panel .img-circle {
- width:50px;
- height:50px;
-}
-.list-group-item:first-child,.list-group-item:last-child {
- border-radius:0;
-}
-h3,h4,h5 { 
- border:0 solid #efefef; 
- border-bottom-width:1px;
- padding-bottom:10px;
-}
-.modal-dialog {
- width: 450px;
-}
-.modal-footer {
- border-width:0;
-}
-.dropdown-menu {
- background-color:#f4f4f4;
- border-color:#f0f0f0;
- border-radius:0;
- margin-top:-1px;
-}
-/* end theme */
-
-/* template layout*/
-#subnav {
- position:fixed;
- width:100%;
+html,body {
+	height:100%;
+    background:center no-repeat fixed url('/images/Jordanien 062.jpg');
+    background-size: cover;
 }
 
-@media (max-width: 768px) {
- #subnav {
-  padding-top: 6px;
- }
+.icon-bar {
+	background-color:#fff;
 }
 
-#main {
- padding-top:120px;
+.navbar-trans {
+	background-color:#279ddd;
+    color:#fff;
+}
+
+.navbar-trans li>a:hover,.navbar-trans li>a:focus,.navbar-trans li.active {
+	background-color:#38afef;
+}
+
+.navbar-trans a{
+    color:#fefefe;
+}
+
+.navbar-trans .form-control:focus {
+	border-color: #eee;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(100,100,100,0.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(100,100,100,0.6);
+}
+
+section {
+	padding-top:70px;
+    padding-bottom:50px;
+    min-height:calc(100% - 1px);
+}
+
+.v-center {
+    padding-top:10%;
+    font-size:70px;
+}
+
+.well {
+	border-color:transparent;
+}
+
+a.list-group-item.active,[class*='-info'] {
+	background-color: #168ccc;
+    color:#fff;
+}
+
+#section1 {
+	background-color: #168ccc;
+    color:#dedeff;
+}
+
+#section2 {
+	background-color: #e5e5ef;
+    color:#686868;
+}
+
+#section3 {
+	background-color: #168ccc;
+    color:#ddd;
+}
+
+#section4 {
+	background-color: #fff;
+    color:#444;
+}
+
+#section5,#section7,#section7 a {
+    color:#f5f5f5;
+}
+
+#section6 {
+	background-color: #168ccc;
+    color:#ddd;
+}
+
+footer {
+	background-color:#494949;
+    color:#ddd;
+    min-height:100px;
+    padding-top:20px;
+    padding-bottom:40px;
+}
+
+footer .nav>li>a {
+    padding:3px;
+    color:#ccc;
+}
+
+footer .nav>li>a:hover {
+    background-color:transparent;
+	color:#fff;
 }

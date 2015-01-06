@@ -44,7 +44,6 @@ module.exports = function profile(){
 
   // Capture all requests, the form library will negotiate
   // between GET and POST requests
-
   router.get('/', stormpath.loginRequired, function(req, res) {
     profileForm.handle(req,{
       success: function(form){

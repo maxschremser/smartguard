@@ -16,6 +16,8 @@
     "csurf": "~1.6.4",
     "xtend": "~4.0.0",
     "debug": "~2.0.0",
-    "properties": "~1.2.1"
+    "properties": "~1.2.1",
+    "naturaltime": "~0.0.1",
+    "node-hue-api": "~0.2.6"
   }
 }
