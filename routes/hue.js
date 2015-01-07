@@ -90,7 +90,7 @@ module.exports = function hue() {
   router.get('/white', stormpath.loginRequired, function(req, res) {
     var api = new HueApi(hue_ipaddress, hue_user);
     var states = hue_api.lightState;
-    var state = hue_on ? states.create().transition(7).white(300,60) : states.create().on().transition(7).white(300,60);
+    var state = hue_on ? states.create().transition(7).white(300,100) : states.create().on().transition(7).white(300,100);
     api.setLightState(1, state);
     api.setLightState(2, state);
 
