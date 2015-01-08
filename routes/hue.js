@@ -3,7 +3,6 @@ var stormpath = require('express-stormpath');
 var csurf = require('csurf');
 var properties = require('properties'), hue_ipaddress, hue_user, num_hues = 0, hue_on = false;
 var hue_api = require('node-hue-api');
-var naturaltime = require('naturaltime');
 var HueApi = hue_api.HueApi;
 
 // read api endpoint and secretKey from configFile
@@ -68,7 +67,7 @@ module.exports = function hue() {
   router.get('/blue', stormpath.loginRequired, function(req, res) {
     var api = new HueApi(hue_ipaddress, hue_user);
     var states = hue_api.lightState;
-    var state = hue_on ? states.create().transition(7).rgb(0,0,200) : states.create().on().transition(7).rgb(0,0,255).brightness(100);
+    var state = hue_on ? states.create().transition(7).xy(0.0, 0.0) : states.create().on().transition(7).xy(0.0, 0.0);
     api.setLightState(1, state);
     api.setLightState(2, state);
 

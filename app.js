@@ -7,6 +7,7 @@ var properties = require('properties');
 var application = "", secretKey = "";
 var app = express();
 var index = require('./routes')();
+var ambilight = require('./routes/ambilight')();
 var profile = require('./routes/profile')();
 var hue = require('./routes/hue')();
 
@@ -42,6 +43,7 @@ app.use(stormpathMiddleware);
 
 app.use('/', index);
 app.use('/hue', hue);
+app.use('/ambilight', ambilight);
 app.use('/profile', profile);
 
 // send the index view on start
