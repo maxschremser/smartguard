@@ -1,0 +1,12 @@
+{
+  "application":"https://api.stormpath.com/v1/applications/6MtnbKJ9p5FtISeUK7KItV",
+  "secretKey": "a01168d40441528766052731f3207a8fcf08cc326ccfa3f563e34d0ba8ad442a96700da71a6881786eed2576c6d6d084",
+  "tvremoteKey":"5646877223",
+  "hue" : {
+    "ip_address": "192.168.0.13",
+    "user":"285f8c2185732b733d90dde40fe2c3"
+  },
+  "tv": {
+    "ip_address": "192.168.0.11"
+  }
+}

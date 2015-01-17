@@ -60,9 +60,15 @@ license: MIT
 author: bootply.com
 */
 
+#ambi .slider-selection {
+    background: #428041;
+}
+#ambi .slider-handle {
+    background: #009900;
+}
 html,body {
 	height:100%;
-    background:center no-repeat fixed url('/images/Jordanien 062.jpg');
+    background:center no-repeat fixed url('../images/Jordanien 514.jpg');
     background-size: cover;
 }
 

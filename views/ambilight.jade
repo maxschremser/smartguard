@@ -11,8 +11,42 @@ block content
       div(id='hue_callout').bs-callout.bs-callout-info
         h4 Ambilight Control Panel
         br
+        input(id="switch-ambilightOn", type="checkbox", checked, data-on-text="ON", data-off-text="OFF", data-label-text="Ambilight", data-on-color="success", data-off-color="danger", data-handle-width="56", size="large")
         br
+        br
+        br
+        input(id="slide-frequency", type="text", data-slider-id="ambi")
+        br
+        script.
+          function init() {
+            var switcher = $("[id='switch-ambilightOn']");
+            switcher.bootstrapSwitch();
+            switcher.on('switchChange.bootstrapSwitch', function (event, state) {
+              var ambilightState = state ? "On" : "Off";
+              console.log("switching " + ambilightState);
+              $.ajax({
+                url: '/ambilight/' + ambilightState
+                , dataType: "json"
+                , async: false
+                , beforeSend: function () {
+                }
+                , success: function (retdata) {
+                  console.log("SUCCESS: " + retdata);
+                }
+                , error: function (jqXHR, textStatus, errorThrown) {
+                  console.dir(jqXHR);
+                  console.debug('Status = ' + textStatus);
+                  console.debug('Error  = ' + errorThrown);
+                  console.debug("ambilight: Hit error fn!");
+                }
+                , complete: function () {
+                }
+              });
+            });
+            $("[id='slide-frequency']").slider({tooltip: 'always', step:50, min: 300, max: 5000});
+          }
 
+          
   else
     p Login before you use the world control center
     p
