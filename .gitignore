@@ -1,6 +1,7 @@
 node_modules
+bower_components
 .stormpath
-config.properties
+config.*
+*.iml
 *.ipr
 *.iws
-*.iml
