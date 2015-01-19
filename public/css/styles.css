@@ -62,9 +62,13 @@ author: bootply.com
 
 #ambi .slider-selection {
     background: #428041;
+    width: 336px;
 }
 #ambi .slider-handle {
     background: #009900;
+}
+#ambi {
+    width: 386px;
 }
 html,body {
 	height:100%;

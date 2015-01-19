@@ -9,16 +9,56 @@ block content
   if user
     .container
       div(id='hue_callout').bs-callout.bs-callout-info
-        h4 Ambilight Control Panel
+        h2 Ambilight Control Panel
+        hr
+        p Use Ambilight
+        input(id="switch-ambilightOn", type="checkbox", checked, data-on-text="ON", data-off-text="OFF", data-label-text="Ambilight", data-on-color="success", data-off-color="danger", data-handle-width="168", size="large")
+        hr
+        p Algorithm for colors
+        input(id="switch-ambilightMethod", type="checkbox", checked, data-on-text="Processed", data-off-text="Measured", data-label-text="Method", data-on-color="success", data-off-color="success", data-handle-width="168", size="large")
+        hr
+        p Automatically turn off HUEs when TV is turned off
+        input(id="switch-ambilightHUE", type="checkbox", checked, data-on-text="ON", data-off-text="OFF", data-label-text="Automatically turn off HUEs", data-on-color="success", data-off-color="warning", data-handle-width="168", size="large")
+        hr
+        p Switch off in seconds
         br
-        input(id="switch-ambilightOn", type="checkbox", checked, data-on-text="ON", data-off-text="OFF", data-label-text="Ambilight", data-on-color="success", data-off-color="danger", data-handle-width="56", size="large")
+        input(id="slide-turnOffTime", type="text", data-slider-id="ambi")
+        hr
+        p Average response time
         br
-        br
-        br
-        input(id="slide-frequency", type="text", data-slider-id="ambi")
+        input(id="slide-average", type="text", data-slider-id="ambi" data-slider-enabled="false")
         br
         script.
+          
+          function getStatus() {
+            console.log("status");
+            $.ajax({
+              url: '/ambilight/status'
+              , dataType: "json"
+              , async: false
+              , beforeSend: function () {
+              }
+              , success: function (retdata) {
+                console.log("SUCCESS: " + JSON.stringify(retdata));
+                $("[id='switch-ambilightOn']").prop('checked', retdata.on);
+                $("[id='switch-ambilightMethod']").prop('checked', retdata.method == "processed");
+                $("[id='switch-ambilightHUE']").prop('checked', retdata.sync == "sync");
+                $("[id='slide-turnOfftime']").val(retdata.turnOffTime);
+                $("[id='slide-average']").val(retdata.avgResponseTime);
+              }
+              , error: function (jqXHR, textStatus, errorThrown) {
+                console.dir(jqXHR);
+                console.log('Status = ' + textStatus);
+                console.log('Error  = ' + errorThrown);
+                console.log("ambilight: Hit error fn!");
+              }
+              , complete: function () {
+              }
+            });
+          }
+          
           function init() {
+            // static or dynamic HUEs
             var switcher = $("[id='switch-ambilightOn']");
             switcher.bootstrapSwitch();
             switcher.on('switchChange.bootstrapSwitch', function (event, state) {
@@ -35,18 +75,137 @@ block content
                 }
                 , error: function (jqXHR, textStatus, errorThrown) {
                   console.dir(jqXHR);
-                  console.debug('Status = ' + textStatus);
-                  console.debug('Error  = ' + errorThrown);
-                  console.debug("ambilight: Hit error fn!");
+                  console.log('Status = ' + textStatus);
+                  console.log('Error  = ' + errorThrown);
+                  console.log("ambilight: Hit error fn!");
                 }
                 , complete: function () {
                 }
               });
             });
-            $("[id='slide-frequency']").slider({tooltip: 'always', step:50, min: 300, max: 5000});
+
+            // Automatically turn off HUEs when TV is turned off
+            var switcherHUE = $("[id='switch-ambilightHUE']");
+            switcherHUE.bootstrapSwitch();
+            switcherHUE.on('switchChange.bootstrapSwitch', function (event, state) {
+              var ambilightState = state ? "sync" : "no-sync";
+              console.log("switching " + ambilightState);
+              $.ajax({
+                url: '/ambilight/' + ambilightState
+                , dataType: "json"
+                , async: false
+                , beforeSend: function () {
+                }
+                , success: function (retdata) {
+                  console.log("SUCCESS: " + retdata);
+                }
+                , error: function (jqXHR, textStatus, errorThrown) {
+                  console.dir(jqXHR);
+                  console.log('Status = ' + textStatus);
+                  console.log('Error  = ' + errorThrown);
+                  console.log("ambilight: Hit error fn!");
+                }
+                , complete: function () {
+                }
+              });
+            });
+
+            // Processed or Measured values
+            var switcherMethod = $("[id='switch-ambilightMethod']");
+            switcherMethod.bootstrapSwitch();
+            switcherMethod.on('switchChange.bootstrapSwitch', function (event, state) {
+              var ambilightState = state ? "measured" : "processed";
+              console.log("switching " + ambilightState);
+              $.ajax({
+                url: '/ambilight/' + ambilightState
+                , dataType: "json"
+                , async: false
+                , beforeSend: function () {
+                }
+                , success: function (retdata) {
+                  console.log("SUCCESS: " + retdata);
+                }
+                , error: function (jqXHR, textStatus, errorThrown) {
+                  console.dir(jqXHR);
+                  console.log('Status = ' + textStatus);
+                  console.log('Error  = ' + errorThrown);
+                  console.log("ambilight: Hit error fn!");
+                }
+                , complete: function () {
+                }
+              });
+            });
+
+            var sliderTurnOffTime = $("[id='slide-turnOffTime']");
+            sliderTurnOffTime.slider({
+              tooltip: 'always',
+              value: 60,
+              step: 10,
+              min: 0,
+              max: 300,
+              formatter: function (v) {
+                return v + " s"
+              }
+            }).on('change', function () {
+              var value = sliderTurnOffTime.val();
+              $.ajax({
+                url: '/ambilight/turnOffTime/' + value
+                , dataType: "json"
+                , async: false
+                , beforeSend: function () {
+                }
+                , success: function (retdata) {
+                  console.log("SUCCESS: " + retdata);
+                }
+                , error: function (jqXHR, textStatus, errorThrown) {
+                  console.dir(jqXHR);
+                  console.log('Status = ' + textStatus);
+                  console.log('Error  = ' + errorThrown);
+                  console.log("ambilight: Hit error fn!");
+                }
+                , complete: function () {
+                }
+              });
+            }).on('slide', function () {
+              console.log("slide " + sliderTurnOffTime.val());
+              var value = sliderTurnOffTime.val();
+              $.ajax({
+                url: '/ambilight/frequency/' + value
+                , dataType: "json"
+                , async: false
+                , beforeSend: function () {
+                }
+                , success: function (retdata) {
+                  console.log("SUCCESS: " + retdata);
+                }
+                , error: function (jqXHR, textStatus, errorThrown) {
+                  console.dir(jqXHR);
+                  console.log('Status = ' + textStatus);
+                  console.log('Error  = ' + errorThrown);
+                  console.log("ambilight: Hit error fn!");
+                }
+                , complete: function () {
+                }
+              });
+
+            }).data('slider');
+
+            var sliderAverage = $("[id='slide-average']");
+            sliderAverage.slider({
+              tooltip: 'always',
+              precision: 3,
+              value: 60,
+              step: 10,
+              min: 0,
+              max: 500,
+              formatter: function (v) {
+                return (v * 1000) + " ms"
+              }
+            });
+            setInterval(getStatus, 5000);
           }
 
-          
+          // eof script
   else
     p Login before you use the world control center
     p
